@@ -1,14 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import TabPanel from '../../components/TabPanel';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import SliderArrow from '../../components/SliderArrow';
 import Button from '../../components/Button';
 import { useModal } from '../../components/Modal/useModal';
 import { CustomModal } from '../../components/Modal/customModal';
+import Toolbar from '../../components/Toolbar';
 import MainLoader from '../../components/Loader';
 import { ProjectForm } from './components/Form';
+import { toolbarList } from '../../configs/constants';
 import validator from './validate';
 import { Aside, ArrowContainer, ContentSection, LandingSection, Heading } from './style';
 
@@ -32,15 +37,20 @@ const EnhancedForm = withFormik({
 const LandingPage = (props) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(true);
+  const [tabIndex, setTabIndex] = React.useState(0);
   const [itemModalOpen, setItemModalOpen, toggleModal] = useModal();
   const node = useRef();
 
   useEffect(() => {
     props.getProjects();
   }, []);
+
   const handleAddProject = (data) => {
     props.addProject(data);
     setItemModalOpen(false);
+  };
+  const handleTabIndex = (newValue) => {
+    setTabIndex(newValue);
   };
   return (
     <React.Fragment>
@@ -64,7 +74,23 @@ const LandingPage = (props) => {
         </Aside>
         <section className="content-section-wrap">
           <ContentSection className="content" isOpen={open}>
-            Hello
+            <section className="toolbar-wrapper">
+              <Toolbar
+                tabDetails={toolbarList}
+                handleTabIndex={(value) => handleTabIndex(value)}></Toolbar>
+            </section>
+            <TabPanel className="tabpanel" value={tabIndex} index={0}>
+              Item One
+            </TabPanel>
+            <TabPanel className="tabpanel" value={tabIndex} index={1}>
+              Item Two
+            </TabPanel>
+            <TabPanel className="tabpanel" value={tabIndex} index={2}>
+              Item Three
+            </TabPanel>
+            <TabPanel className="tabpanel" value={tabIndex} index={3}>
+              Item Four
+            </TabPanel>
           </ContentSection>
         </section>
         <CustomModal

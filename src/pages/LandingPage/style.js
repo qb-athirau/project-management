@@ -24,6 +24,20 @@ export const ContentSection = styled.section`
     height: calc(100vh - 70px);
     background-color: ${(props) => props.theme.snow};
   }
+  .toolbar-wrapper {
+    overflow: hidden;
+    min-height: 72;
+    background-color: ${(props) => props.theme.pureWhite};
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .tabpanel {
+    background-color: #fff;
+    margin: 5px;
+    height: calc(100% - 80px);
+  }
 `;
 export const LandingSection = styled.section`
   &.container {
