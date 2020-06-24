@@ -5,6 +5,7 @@ import LandingPage from './component';
 const mapStateToProps = (state) => {
   return {
     projectList: state.landing.projects,
+    loading: state.landing.loading,
   };
 };
 const mapDispatchToProps = (dispatch) => {

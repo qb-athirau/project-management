@@ -7,7 +7,9 @@ const colorThemes = {
   lightGrey: '#999',
   intermediateGrey: '#ede',
   flatBlue: '#2f839d',
+  speechBlue: '#3f51b5',
   errorRed: 'rgb(191, 49, 12)',
+  snow: '#fbfbfb',
 };
 
 export default colorThemes;

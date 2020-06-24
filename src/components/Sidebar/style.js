@@ -6,12 +6,16 @@ export const StyledSideNav = styled.div`
     display: ${(props) => (props.isOpen ? 'flex' : 'none')};
     justify-content: space-between;
     flex-direction: column;
-    padding: 22px 2px 3px 22px;
+    padding: 0 2px 3px 12px;
     .navlink {
       display: flex;
       text-align: center;
+      align-items: center;
       justify-content: space-between;
       cursor: pointer;
+      :hover {
+        background-color: ${(props) => props.theme.veryLightGrey};
+      }
     }
   }
   .list-header {
@@ -19,13 +23,15 @@ export const StyledSideNav = styled.div`
     justify-content: space-between;
     padding-bottom: 5px;
     font-family: Poppins-Bold;
+    font-size: 12px;
+    margin: 20px 10px 0 10px;
+  }
   }
 `;
 
 export const SpanText = styled.span`
   overflow: hidden;
   opacity: 0.8;
-  font-family: Google Sans;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -51,9 +57,11 @@ export const StyledLink = styled(NavLink)`
   .span-wraper {
     display: flex;
     flex-direction: column;
+    margin-left: 10px;
   }
   .circle {
     width: 33px;
     height: 33px;
+    margin-right: 10px;
   }
 `;
