@@ -38,6 +38,13 @@ export const ContentSection = styled.section`
     margin: 5px;
     height: calc(100% - 80px);
   }
+  .flex-wrap {
+    display: flex;
+  }
+  .column-wrap {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const LandingSection = styled.section`
   &.container {
@@ -79,5 +86,29 @@ export const ProjectFormLayout = styled.div`
     text-align: left;
     width: 300px;
     margin-top: 34px;
+  }
+`;
+export const BasicFormLayout = styled.div`
+  label + .MuiInput-formControl {
+    margin-top: 10px;
+  }
+`;
+export const FirstPanel = styled.div`
+  &.panel-one-wrapper {
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+  }
+  .basic-info {
+    padding: 5px;
+    width: 33%;
+  }
+  .panel-header {
+    height: 35px;
+    background-color: ${(props) => props.theme.whisper};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 13px 3px 13px;
   }
 `;

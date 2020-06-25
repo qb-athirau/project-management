@@ -20,3 +20,33 @@ export const toolbarList = [
     index: 3,
   },
 ];
+
+export const caseStatusList = [
+  {
+    label: 'Case Created',
+    value: 1,
+  },
+  {
+    label: 'Case completed',
+    value: 2,
+  },
+  {
+    label: 'Case Submitted',
+    value: 3,
+  },
+];
+
+export const salesStageList = [
+  {
+    label: 'Identify Prospect',
+    value: 1,
+  },
+  {
+    label: 'Case completed',
+    value: 2,
+  },
+  {
+    label: 'Case Submitted',
+    value: 3,
+  },
+];

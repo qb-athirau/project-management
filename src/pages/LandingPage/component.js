@@ -14,8 +14,18 @@ import Toolbar from '../../components/Toolbar';
 import MainLoader from '../../components/Loader';
 import { ProjectForm } from './components/Form';
 import { toolbarList } from '../../configs/constants';
+import POC from './components/POC';
+import Notes from './components/Notes';
+import { BasicInfoForm } from './components/BasicInfoForm';
 import validator from './validate';
-import { Aside, ArrowContainer, ContentSection, LandingSection, Heading } from './style';
+import {
+  Aside,
+  ArrowContainer,
+  ContentSection,
+  LandingSection,
+  Heading,
+  FirstPanel,
+} from './style';
 
 const EnhancedForm = withFormik({
   mapPropsToValues: (props) => ({
@@ -33,6 +43,14 @@ const EnhancedForm = withFormik({
   },
   displayName: 'Add Project Form',
 })(ProjectForm);
+
+const EnhancedBasicInfoForm = withFormik({
+  mapPropsToValues: (props) => ({}),
+  handleBlur: (values, { props, setSubmitting }) => {
+    props.addProject(values);
+  },
+  displayName: 'Basic Info Form',
+})(BasicInfoForm);
 
 const LandingPage = (props) => {
   const [open, setOpen] = useState(false);
@@ -80,7 +98,21 @@ const LandingPage = (props) => {
                 handleTabIndex={(value) => handleTabIndex(value)}></Toolbar>
             </section>
             <TabPanel className="tabpanel" value={tabIndex} index={0}>
-              Item One
+              <FirstPanel className="panel-one-wrapper">
+                <section className="basic-info">
+                  <section className="panel-header">
+                    <span>Case Basic Info</span>
+                    <span className="column-wrap">
+                      <div>Yoda ID</div>id <div></div>
+                    </span>
+                  </section>
+                  <section className="form-section">
+                    <EnhancedBasicInfoForm />
+                  </section>
+                </section>
+                <POC />
+                <Notes />
+              </FirstPanel>
             </TabPanel>
             <TabPanel className="tabpanel" value={tabIndex} index={1}>
               Item Two
