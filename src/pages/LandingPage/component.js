@@ -7,6 +7,7 @@ const LandingPage = (props) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(true);
   const node = useRef();
+
   return (
     <LandingSection className="container">
       <Aside isOpen={open}>
