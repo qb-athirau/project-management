@@ -10,6 +10,7 @@ const colorThemes = {
   speechBlue: '#3f51b5',
   errorRed: 'rgb(191, 49, 12)',
   snow: '#fbfbfb',
+  whisper: '#eee',
 };
 
 export default colorThemes;
