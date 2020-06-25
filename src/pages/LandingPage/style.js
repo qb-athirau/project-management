@@ -20,8 +20,7 @@ export const ArrowContainer = styled.div`
 `;
 export const ContentSection = styled.section`
   &.content {
-    overflow: auto;
-    height: calc(100vh - 70px);
+    // overflow: auto;
     background-color: ${(props) => props.theme.snow};
   }
   .toolbar-wrapper {
@@ -36,7 +35,7 @@ export const ContentSection = styled.section`
   .tabpanel {
     background-color: #fff;
     margin: 5px;
-    height: calc(100% - 80px);
+    height: 100%;
   }
   .flex-wrap {
     display: flex;
@@ -89,8 +88,43 @@ export const ProjectFormLayout = styled.div`
   }
 `;
 export const BasicFormLayout = styled.div`
-  label + .MuiInput-formControl {
-    margin-top: 10px;
+  // label + .MuiInput-formControl {
+  //   margin-top: 10px;
+  // }
+  input {
+    font-family: Poppins-Medium;
+    font-size: 12px;
+  }
+  .MuiFormLabel-root {
+    font-family: Poppins-Medium;
+    font-size: 12px;
+  }
+  .field-width {
+    width: 100%;
+  }
+  .multi-field-width {
+    width: 48%;
+  }
+  .sales-select .MuiInput-formControl {
+    margin-top: 14px !important;
+  }
+  .radio-btn {
+    display: flex;
+    flex-direction: row;
+    label {
+      width: 30%;
+      .MuiFormControlLabel-label {
+        font-family: Poppins-Medium;
+        font-size: 10px;
+      }
+    }
+    .MuiRadio-colorSecondary.Mui-checked {
+      color: ${(props) => props.theme.speechBlue};
+    }
+    .MuiSvgIcon-root {
+      width: 1rem;
+      height: 1rem;
+    }
   }
 `;
 export const FirstPanel = styled.div`
@@ -104,7 +138,9 @@ export const FirstPanel = styled.div`
     width: 33%;
   }
   .panel-header {
-    height: 35px;
+    height: 32px;
+    font-size: 12px;
+    font-family: Poppins-Medium;
     background-color: ${(props) => props.theme.whisper};
     display: flex;
     justify-content: space-between;

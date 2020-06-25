@@ -31,7 +31,7 @@ const MaterialUISelectField = ({
 
 const FormikSelect = (props) => {
   return (
-    <FormikSelectLayout>
+    <FormikSelectLayout className={props.inputclass}>
       <Field {...props} as={MaterialUISelectField} errorString={<ErrorMessage name={props.name} />}>
         {props.items.map((item) => (
           <MenuItem key={item.value} value={item.value}>

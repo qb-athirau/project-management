@@ -6,7 +6,7 @@ import { FormikFieldLayout } from './style';
 
 const FormikField = (props) => {
   return (
-    <FormikFieldLayout>
+    <FormikFieldLayout className={props.inputclass}>
       <Field {...props} as={TextField} helperText={<ErrorMessage name={props.name} />} />
     </FormikFieldLayout>
   );

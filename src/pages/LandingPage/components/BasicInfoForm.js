@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form } from 'formik';
+import { Form, Field } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import { DatePicker } from 'formik-material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -8,8 +8,9 @@ import Button from '../../../components/Button';
 import { ButtonWrap, BasicFormLayout } from '../style';
 import FormikField from '../../../components/FormikField';
 import FormikSelect from '../../../components/FormikSelect';
+import FormikRadioGroup from '../../../components/FormikRadioGroup';
 import TextArea from '../../../components/TextArea';
-import { caseStatusList, salesStageList } from '../../../configs/constants';
+import { caseStatusList, salesStageList, radioBtnLabels } from '../../../configs/constants';
 
 export const BasicInfoForm = (props) => {
   const { errors, isSubmitting, valid, handleSubmit } = props;
@@ -17,15 +18,21 @@ export const BasicInfoForm = (props) => {
     <Form name="BasicInfo Form" method="post" onSubmit={handleSubmit}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <BasicFormLayout>
+          <Field
+            name="radioGroup"
+            options={radioBtnLabels}
+            className="radio-btn"
+            component={FormikRadioGroup}
+          />
           <FormikField
-            name="name"
+            name="clientName"
             label="Project Name"
             className="wrapper"
             fullWidth
             autoComplete="off"
           />
           <FormikField
-            name="name"
+            name="phoneNumber"
             label="Phone Number"
             className="wrapper"
             fullWidth
@@ -40,23 +47,26 @@ export const BasicInfoForm = (props) => {
           />
           <div className="flex-wrap">
             <FormikField
-              name="dateOfAppointmnt"
-              label="RenewalDate"
+              name="renewalDate"
+              label="Renewal Date"
+              inputclass="multi-field-width"
+              className="field-width"
               component={DatePicker}
               format="dd/MM/yyyy"
               autoComplete="off"
             />
             <FormikField
-              name="status"
+              name="liveNum"
               label="No of Lives"
+              inputclass="multi-field-width"
+              className="field-width"
               type="number"
-              className="wrapper"
               fullWidth
               autoComplete="off"
             />
           </div>
           <FormikField
-            name="name"
+            name="brokerName"
             label="Current Broker"
             className="wrapper"
             fullWidth
@@ -65,7 +75,7 @@ export const BasicInfoForm = (props) => {
           <FormikSelect
             items={caseStatusList}
             type="text"
-            name="gender"
+            name="caseStatus"
             label="Detailed case status"
             autoCapitalize="off"
             autoCorrect="off"
@@ -76,18 +86,21 @@ export const BasicInfoForm = (props) => {
             <FormikSelect
               items={salesStageList}
               type="text"
-              name="gender"
+              name="salesStage"
               label="Sales Stage"
+              inputclass="multi-field-width"
+              className="sales-select field-width"
               autoCapitalize="off"
               autoCorrect="off"
               placeholder=""
               required
             />
             <FormikField
-              name="status"
+              name="probability"
               label="Probability"
               type="number"
-              className="wrapper"
+              inputclass="multi-field-width"
+              className="field-width"
               fullWidth
               autoComplete="off"
             />
@@ -95,7 +108,7 @@ export const BasicInfoForm = (props) => {
           <FormikSelect
             items={caseStatusList}
             type="text"
-            name="gender"
+            name="quoteStatus"
             label="Quote status"
             autoCapitalize="off"
             autoCorrect="off"

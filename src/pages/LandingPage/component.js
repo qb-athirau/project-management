@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import TabPanel from '../../components/TabPanel';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
@@ -45,7 +43,18 @@ const EnhancedForm = withFormik({
 })(ProjectForm);
 
 const EnhancedBasicInfoForm = withFormik({
-  mapPropsToValues: (props) => ({}),
+  mapPropsToValues: (props) => ({
+    clientName: '',
+    phoneNumber: '',
+    name: '',
+    renewalDate: new Date(),
+    brokerName: '',
+    liveNum: 0,
+    caseStatus: '',
+    salesStage: '',
+    probability: 0,
+    quoteStatus: '',
+  }),
   handleBlur: (values, { props, setSubmitting }) => {
     props.addProject(values);
   },
@@ -102,9 +111,6 @@ const LandingPage = (props) => {
                 <section className="basic-info">
                   <section className="panel-header">
                     <span>Case Basic Info</span>
-                    <span className="column-wrap">
-                      <div>Yoda ID</div>id <div></div>
-                    </span>
                   </section>
                   <section className="form-section">
                     <EnhancedBasicInfoForm />

@@ -16,10 +16,12 @@ const Sidebar = ({ open, ...props }) => {
   }, [props.projectList]);
   const handleSearch = (event) => {
     if (event.target.value.trim()) {
-      const newList = props.projectList.filter(
-        (item) =>
-          item.name.includes(event.target.value) || item.description.includes(event.target.value),
-      );
+      const newList = props.projectList.filter((item) => {
+        return (
+          item.name.toLowerCase().includes(event.target.value.toLowerCase()) ||
+          item.description.toLowerCase().includes(event.target.value.toLowerCase())
+        );
+      });
       setProjectList(newList);
     } else {
       setProjectList(props.projectList);

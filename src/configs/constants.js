@@ -50,3 +50,5 @@ export const salesStageList = [
     value: 3,
   },
 ];
+
+export const radioBtnLabels = ['New Client', 'Existing Client'];
