@@ -16,8 +16,12 @@ export const toolbarList = [
     index: 2,
   },
   {
-    label: 'Quote Summary',
+    label: 'RFP Collaborators',
     index: 3,
+  },
+  {
+    label: 'Quote Summary',
+    index: 4,
   },
 ];
 
@@ -52,3 +56,6 @@ export const salesStageList = [
 ];
 
 export const radioBtnLabels = ['New Client', 'Existing Client'];
+
+// export const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+export const phoneRegExp = /\d{5}([- ]*)\d{6}/;

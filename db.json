@@ -7,8 +7,9 @@
       "id": 1
     },
     {
-      "name": "Project 102",
-      "description": "Test",
+      "renewalDate": "2020-06-28T15:52:33.188Z",
+      "clientName": "NewClient",
+      "name": "NewProject",
       "status": 50,
       "id": 2
     },

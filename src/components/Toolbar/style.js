@@ -14,7 +14,7 @@ const activeCss = css`
   background: ${(props) => props.theme.speechBlue};
   color: ${(props) => props.theme.pureWhite};
   ::after {
-    border-left: 10px solid ${(props) => props.theme.speechBlue};
+    border-left: 10px solid ${(props) => props.theme.speechBlue} !important;
   }
 `;
 export const ToolbarNavLi = styled.li`
@@ -32,11 +32,15 @@ export const ToolbarNavLi = styled.li`
     :nth-child(4) {
       ${({ active }) => active && active === 3 && activeCss}}
     }
+    :nth-child(5) {
+      ${({ active }) => active && active === 4 && activeCss}}
+    }
     :active {
       background: ${(props) => props.theme.speechBlue};
     }
     :hover {
       background: ${(props) => props.theme.whisper};
+      :not(:last-child) {
       ::after {
         position: absolute;
         top: 0;
@@ -49,15 +53,22 @@ export const ToolbarNavLi = styled.li`
         margin-right: -10px;
       }
     }
+    }
+    
     :first-child {
       padding: 0.5rem 1rem;
       border-bottom-left-radius: 20px;
       border-top-left-radius: 20px;
       ${({ active }) => active === 0 && activeCss}}
     }
+    :last-child {
+      border-bottom-right-radius: 20px;
+      border-top-right-radius: 20px;
+    }
     :not(:last-child) {
       margin-right: 10px;
     }
+    :not(:last-child) {
     :after {
       position: absolute;
       top: 0;
@@ -70,6 +81,7 @@ export const ToolbarNavLi = styled.li`
       margin-right: -10px;
       transition: all 0.2s;
     }
+  }
     :not(:first-child):before {
       position: absolute;
       top: 0;

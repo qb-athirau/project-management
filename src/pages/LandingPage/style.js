@@ -108,14 +108,19 @@ export const BasicFormLayout = styled.div`
   .sales-select .MuiInput-formControl {
     margin-top: 14px !important;
   }
+  .message {
+    padding-left: 5px;
+    color: ${(props) => props.theme.errorRed};
+    font-size: 10px;
+  }
   .radio-btn {
     display: flex;
     flex-direction: row;
     label {
-      width: 30%;
+      width: 35%;
       .MuiFormControlLabel-label {
         font-family: Poppins-Medium;
-        font-size: 10px;
+        font-size: 11px;
       }
     }
     .MuiRadio-colorSecondary.Mui-checked {

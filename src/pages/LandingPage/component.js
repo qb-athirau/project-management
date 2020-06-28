@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Route } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import TabPanel from '../../components/TabPanel';
@@ -14,6 +15,7 @@ import { ProjectForm } from './components/Form';
 import { toolbarList } from '../../configs/constants';
 import POC from './components/POC';
 import Notes from './components/Notes';
+// import FirstPanel from './components/FirstPanel';
 import { BasicInfoForm } from './components/BasicInfoForm';
 import validator from './validate';
 import {
@@ -61,7 +63,7 @@ const EnhancedBasicInfoForm = withFormik({
   displayName: 'Basic Info Form',
 })(BasicInfoForm);
 
-const LandingPage = (props) => {
+const LandingPage = (props, match) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(true);
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -78,6 +80,9 @@ const LandingPage = (props) => {
   };
   const handleTabIndex = (newValue) => {
     setTabIndex(newValue);
+  };
+  const handleUpdateProject = (payload) => {
+    props.updateProject(payload);
   };
   return (
     <React.Fragment>
@@ -107,13 +112,21 @@ const LandingPage = (props) => {
                 handleTabIndex={(value) => handleTabIndex(value)}></Toolbar>
             </section>
             <TabPanel className="tabpanel" value={tabIndex} index={0}>
+              {/* <FirstPanel data={props.projectList ?? []} />
+              <Route
+                path={`/:projectId`}
+                exact
+                render={(props) => <FirstPanel data={props.projectList} {...props} />}
+              /> */}
               <FirstPanel className="panel-one-wrapper">
                 <section className="basic-info">
                   <section className="panel-header">
                     <span>Case Basic Info</span>
                   </section>
                   <section className="form-section">
-                    <EnhancedBasicInfoForm />
+                    <EnhancedBasicInfoForm
+                      updateProjectData={(payload) => handleUpdateProject(payload)}
+                    />
                   </section>
                 </section>
                 <POC />
@@ -128,6 +141,9 @@ const LandingPage = (props) => {
             </TabPanel>
             <TabPanel className="tabpanel" value={tabIndex} index={3}>
               Item Four
+            </TabPanel>
+            <TabPanel className="tabpanel" value={tabIndex} index={4}>
+              Item Five
             </TabPanel>
           </ContentSection>
         </section>

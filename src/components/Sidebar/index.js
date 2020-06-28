@@ -39,7 +39,7 @@ const Sidebar = ({ open, ...props }) => {
         {projectList?.map((item, index) => {
           return (
             <StyledLink
-              to={item.id}
+              to={`/${item.id}`}
               className="navlink"
               key={item.id}
               onClick={(e) => {
