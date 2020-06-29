@@ -9,8 +9,15 @@
     {
       "renewalDate": "2020-06-28T15:52:33.188Z",
       "clientName": "NewClient",
+      "description": "Test",
       "name": "NewProject",
       "status": 50,
+      "poc": [
+        {
+          "pocName": "Anu",
+          "email": "Anu@abh.com"
+        }
+      ],
       "id": 2
     },
     {

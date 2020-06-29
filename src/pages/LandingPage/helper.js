@@ -47,7 +47,7 @@ export const updateProject = (data) => (dispatch) => {
     dispatch(setProjectStart());
     const response = fetchAPI.put(`${Api.projectsApi}/2`, data);
     response.then((res) => {
-      // dispatch(setProjects(res?.data));
+      dispatch(setProjects(res?.data));
     });
   } catch (error) {
     dispatch(setProjectFailure());

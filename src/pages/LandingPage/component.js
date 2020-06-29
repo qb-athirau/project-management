@@ -17,7 +17,8 @@ import POC from './components/POC';
 import Notes from './components/Notes';
 // import FirstPanel from './components/FirstPanel';
 import { BasicInfoForm } from './components/BasicInfoForm';
-import validator from './validate';
+import { AddPOCForm } from './components/AddPOCForm';
+import { validator, PocValidator } from './validate';
 import {
   Aside,
   ArrowContainer,
@@ -63,17 +64,45 @@ const EnhancedBasicInfoForm = withFormik({
   displayName: 'Basic Info Form',
 })(BasicInfoForm);
 
+const EnhancedAddPOC = withFormik({
+  mapPropsToValues: (props) => ({
+    pocName: props.data.pocName ?? '',
+    email: props.data.email ?? '',
+  }),
+  validationSchema: Yup.object().shape(PocValidator),
+  handleSubmit: (values, { props, setSubmitting }) => {
+    props.updatePoc({
+      ...props.data,
+      poc: [...(props.data?.poc ?? ''), { ...values }],
+    });
+    const timeOut = setTimeout(() => {
+      setSubmitting(false);
+      clearTimeout(timeOut);
+    }, 1000);
+  },
+  displayName: 'Add POC Form',
+})(AddPOCForm);
+
 const LandingPage = (props, match) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(true);
   const [tabIndex, setTabIndex] = React.useState(0);
+  const [openAddPOC, setOpenAddPOC] = useState(false);
+  const [selectedProject, setSelectedProject] = useState([]);
+  const [editPOCDetails, setEditPOCDetails] = useState([]);
   const [itemModalOpen, setItemModalOpen, toggleModal] = useModal();
   const node = useRef();
 
   useEffect(() => {
     props.getProjects();
   }, []);
-
+  useEffect(() => {
+    const project =
+      props.projectList && props.projectList.length !== 0
+        ? props.projectList.find((p) => p.id == '2')
+        : [];
+    setSelectedProject(project);
+  }, [props.projectList]);
   const handleAddProject = (data) => {
     props.addProject(data);
     setItemModalOpen(false);
@@ -83,6 +112,23 @@ const LandingPage = (props, match) => {
   };
   const handleUpdateProject = (payload) => {
     props.updateProject(payload);
+  };
+  const handleAddPOC = (item) => {
+    setEditPOCDetails(item);
+    setOpenAddPOC(true);
+    toggleModal();
+  };
+  const handleDeletePOC = (dataToRemove) => {
+    const payload = {
+      ...selectedProject,
+      poc: selectedProject.poc.filter((item) => item.email !== dataToRemove.email),
+    };
+    setSelectedProject(payload);
+    props.updateProject(payload);
+  };
+  const handleModalClose = () => {
+    setItemModalOpen(false);
+    setOpenAddPOC(false);
   };
   return (
     <React.Fragment>
@@ -129,7 +175,11 @@ const LandingPage = (props, match) => {
                     />
                   </section>
                 </section>
-                <POC />
+                <POC
+                  openAddPOC={handleAddPOC}
+                  deletePOCDetail={handleDeletePOC}
+                  data={selectedProject}
+                />
                 <Notes />
               </FirstPanel>
             </TabPanel>
@@ -147,12 +197,22 @@ const LandingPage = (props, match) => {
             </TabPanel>
           </ContentSection>
         </section>
-        <CustomModal
-          title="Item Modal"
-          open={itemModalOpen}
-          handleClose={() => setItemModalOpen(false)}>
-          <Heading>Case Details</Heading>
-          <EnhancedForm addProject={(payload) => handleAddProject(payload)} />
+        <CustomModal title="Item Modal" open={itemModalOpen} handleClose={() => handleModalClose()}>
+          {!openAddPOC && (
+            <React.Fragment>
+              <Heading>Case Details</Heading>
+              <EnhancedForm addProject={(payload) => handleAddProject(payload)} />
+            </React.Fragment>
+          )}
+          {openAddPOC && (
+            <React.Fragment>
+              <Heading>Add POC Details</Heading>
+              <EnhancedAddPOC
+                data={editPOCDetails}
+                updatePoc={(payload) => handleUpdateProject(payload)}
+              />
+            </React.Fragment>
+          )}
         </CustomModal>
       </LandingSection>
     </React.Fragment>
