@@ -132,7 +132,7 @@ export const BasicFormLayout = styled.div`
     }
   }
 `;
-export const FirstPanel = styled.div`
+export const FirstPanelLayout = styled.div`
   &.panel-one-wrapper {
     display: flex;
     padding: 5px;

@@ -25,7 +25,7 @@ import {
   ContentSection,
   LandingSection,
   Heading,
-  FirstPanel,
+  FirstPanelLayout,
 } from './style';
 
 const EnhancedForm = withFormik({
@@ -71,9 +71,22 @@ const EnhancedAddPOC = withFormik({
   }),
   validationSchema: Yup.object().shape(PocValidator),
   handleSubmit: (values, { props, setSubmitting }) => {
+    let updatedpoc = [];
+    if (props.data) {
+      updatedpoc = props.projectData?.poc.map((item) => {
+        if (item.id === props.data.id) {
+          return {
+            ...values,
+            id: item.id,
+          };
+        }
+        return item;
+      });
+    }
     props.updatePoc({
-      ...props.data,
-      poc: [...(props.data?.poc ?? ''), { ...values }],
+      ...props.projectData,
+      poc: updatedpoc ?? [...(props.projectData?.poc ?? ''), { ...values }],
+      id: props.projectData?.poc?.length ?? 0,
     });
     const timeOut = setTimeout(() => {
       setSubmitting(false);
@@ -99,9 +112,9 @@ const LandingPage = (props, match) => {
   useEffect(() => {
     const project =
       props.projectList && props.projectList.length !== 0
-        ? props.projectList.find((p) => p.id == '2')
+        ? props.projectList?.filter((p) => p.id == '2')
         : [];
-    setSelectedProject(project);
+    setSelectedProject(...project);
   }, [props.projectList]);
   const handleAddProject = (data) => {
     props.addProject(data);
@@ -158,13 +171,15 @@ const LandingPage = (props, match) => {
                 handleTabIndex={(value) => handleTabIndex(value)}></Toolbar>
             </section>
             <TabPanel className="tabpanel" value={tabIndex} index={0}>
-              {/* <FirstPanel data={props.projectList ?? []} />
-              <Route
+              {/* <FirstPanel data={props.projectList ?? []} /> */}
+              {/* <Route
                 path={`/:projectId`}
                 exact
-                render={(props) => <FirstPanel data={props.projectList} {...props} />}
+                render={(props) => (
+                  <FirstPanel data={[]} {...props} handleUpdateProject={handleUpdateProject} />
+                )}
               /> */}
-              <FirstPanel className="panel-one-wrapper">
+              <FirstPanelLayout className="panel-one-wrapper">
                 <section className="basic-info">
                   <section className="panel-header">
                     <span>Case Basic Info</span>
@@ -180,8 +195,8 @@ const LandingPage = (props, match) => {
                   deletePOCDetail={handleDeletePOC}
                   data={selectedProject}
                 />
-                <Notes />
-              </FirstPanel>
+                <Notes data={selectedProject} />
+              </FirstPanelLayout>
             </TabPanel>
             <TabPanel className="tabpanel" value={tabIndex} index={1}>
               Item Two
@@ -209,6 +224,7 @@ const LandingPage = (props, match) => {
               <Heading>Add POC Details</Heading>
               <EnhancedAddPOC
                 data={editPOCDetails}
+                projectData={selectedProject}
                 updatePoc={(payload) => handleUpdateProject(payload)}
               />
             </React.Fragment>

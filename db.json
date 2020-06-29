@@ -15,7 +15,14 @@
       "poc": [
         {
           "pocName": "Anu",
-          "email": "Anu@abh.com"
+          "email": "Anu@abh.com",
+          "id": 0
+        }
+      ],
+      "notes": [
+        {
+          "label": "case Description",
+          "description": "Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         }
       ],
       "id": 2
