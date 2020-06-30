@@ -125,9 +125,12 @@ const LandingPage = (props, match) => {
     props.getProjects();
   }, []);
   useEffect(() => {
+    const pathlocation = window.location.pathname.substring(
+      window.location.pathname.lastIndexOf('/') + 1,
+    );
     const project =
       props.projectList && props.projectList.length !== 0
-        ? props.projectList.filter((p) => p.id == window.location.pathname.slice(1))
+        ? props.projectList.filter((p) => p.id == pathlocation)
         : [];
     setSelectedProject(...project);
   }, [props.projectList]);
@@ -179,10 +182,9 @@ const LandingPage = (props, match) => {
     setOpenAddPOC(false);
     setOpenAddNotes(false);
   };
-  console.log(window.location.pathname);
-  if (window.location.pathname === '/' && props.projectList.length) {
+  if (window.location.pathname === '/project-management' && props.projectList.length) {
     const path = props.projectList[0].id;
-    return <Redirect to={`/${path}`} />;
+    return <Redirect to={`/project-management/${path}`} />;
   }
   return (
     <React.Fragment>
@@ -213,7 +215,7 @@ const LandingPage = (props, match) => {
             </section>
             <TabPanel className="tabpanel" value={tabIndex} index={0}>
               <Route
-                path={`/:projectId`}
+                path={`/project-management/:projectId`}
                 exact
                 render={(prop) => (
                   <FirstPanel
