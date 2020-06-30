@@ -16,4 +16,8 @@ export const SearchLayout = styled.div`
   .iconButton {
     color: ${(props) => props.theme.veryLightGrey};
   }
+  input {
+    font-family: Poppins-Medium;
+    font-size: 10px;
+  }
 `;

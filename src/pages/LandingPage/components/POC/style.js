@@ -18,7 +18,7 @@ export const POCLayout = styled.section`
   }
   .poc-li {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     padding: 14px;
     font-family: Poppins-Medium;
     font-size: 12px;
@@ -27,11 +27,24 @@ export const POCLayout = styled.section`
       background-color: ${(props) => props.theme.veryLightGrey};
     }
   }
+  .poc-name {
+    width: 35%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .poc-email {
+    width: 65%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .popper {
     top: 27px !important;
     right: 0;
     position: absolute !important;
     left: 263px !important;
+    z-index: 1;
     li {
       font-family: Poppins-Light;
       font-size: 12px;

@@ -11,7 +11,7 @@ const SearchBar = (props) => {
       <Paper component="form" className="paper">
         <InputBase
           className="input"
-          placeholder="Search"
+          placeholder="Search for ..."
           inputProps={{ 'aria-label': 'search projects' }}
           onChange={props.onChange}
         />

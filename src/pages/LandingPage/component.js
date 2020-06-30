@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import TabPanel from '../../components/TabPanel';
@@ -13,20 +13,11 @@ import Toolbar from '../../components/Toolbar';
 import MainLoader from '../../components/Loader';
 import { ProjectForm } from './components/Form';
 import { toolbarList } from '../../configs/constants';
-import POC from './components/POC';
-import Notes from './components/Notes';
-// import FirstPanel from './components/FirstPanel';
-import { BasicInfoForm } from './components/BasicInfoForm';
+import FirstPanel from './components/FirstPanel';
 import { AddPOCForm } from './components/AddPOCForm';
+import { AddNotesForm } from './components/AddNotesForm';
 import { validator, PocValidator } from './validate';
-import {
-  Aside,
-  ArrowContainer,
-  ContentSection,
-  LandingSection,
-  Heading,
-  FirstPanelLayout,
-} from './style';
+import { Aside, ArrowContainer, ContentSection, LandingSection, Heading } from './style';
 
 const EnhancedForm = withFormik({
   mapPropsToValues: (props) => ({
@@ -45,24 +36,41 @@ const EnhancedForm = withFormik({
   displayName: 'Add Project Form',
 })(ProjectForm);
 
-const EnhancedBasicInfoForm = withFormik({
+const EnhancedAddNotes = withFormik({
   mapPropsToValues: (props) => ({
-    clientName: '',
-    phoneNumber: '',
-    name: '',
-    renewalDate: new Date(),
-    brokerName: '',
-    liveNum: 0,
-    caseStatus: '',
-    salesStage: '',
-    probability: 0,
-    quoteStatus: '',
+    label: props.data.label ?? '',
+    description: props.data.description ?? '',
   }),
-  handleBlur: (values, { props, setSubmitting }) => {
-    props.addProject(values);
+  handleSubmit: (values, { props, setSubmitting }) => {
+    let updatednote = [];
+    if (props.data.id) {
+      updatednote = props.projectData?.notes.map((item) => {
+        if (item.id === props.data.id) {
+          return {
+            ...values,
+            id: item.id,
+          };
+        }
+        return item;
+      });
+    }
+    props.updateNote({
+      ...props.projectData,
+      notes:
+        updatednote.length !== 0
+          ? updatednote
+          : [
+              ...(props.projectData?.notes ?? ''),
+              { ...values, id: props.projectData?.notes?.length ?? 0 },
+            ],
+    });
+    const timeOut = setTimeout(() => {
+      setSubmitting(false);
+      clearTimeout(timeOut);
+    }, 1000);
   },
-  displayName: 'Basic Info Form',
-})(BasicInfoForm);
+  displayName: 'Add Notes Form',
+})(AddNotesForm);
 
 const EnhancedAddPOC = withFormik({
   mapPropsToValues: (props) => ({
@@ -72,7 +80,7 @@ const EnhancedAddPOC = withFormik({
   validationSchema: Yup.object().shape(PocValidator),
   handleSubmit: (values, { props, setSubmitting }) => {
     let updatedpoc = [];
-    if (props.data) {
+    if (props.data.id) {
       updatedpoc = props.projectData?.poc.map((item) => {
         if (item.id === props.data.id) {
           return {
@@ -85,8 +93,13 @@ const EnhancedAddPOC = withFormik({
     }
     props.updatePoc({
       ...props.projectData,
-      poc: updatedpoc ?? [...(props.projectData?.poc ?? ''), { ...values }],
-      id: props.projectData?.poc?.length ?? 0,
+      poc:
+        updatedpoc.length !== 0
+          ? updatedpoc
+          : [
+              ...(props.projectData?.poc ?? ''),
+              { ...values, id: props.projectData?.poc?.length ?? 0 },
+            ],
     });
     const timeOut = setTimeout(() => {
       setSubmitting(false);
@@ -101,8 +114,10 @@ const LandingPage = (props, match) => {
   const [active, setActive] = useState(true);
   const [tabIndex, setTabIndex] = React.useState(0);
   const [openAddPOC, setOpenAddPOC] = useState(false);
+  const [openAddNotes, setOpenAddNotes] = useState(false);
   const [selectedProject, setSelectedProject] = useState([]);
-  const [editPOCDetails, setEditPOCDetails] = useState([]);
+  const [editPOCDetails, setEditPOCDetails] = useState({});
+  const [editNote, setEditNote] = useState({});
   const [itemModalOpen, setItemModalOpen, toggleModal] = useModal();
   const node = useRef();
 
@@ -112,7 +127,7 @@ const LandingPage = (props, match) => {
   useEffect(() => {
     const project =
       props.projectList && props.projectList.length !== 0
-        ? props.projectList?.filter((p) => p.id == '2')
+        ? props.projectList.filter((p) => p.id == window.location.pathname.slice(1))
         : [];
     setSelectedProject(...project);
   }, [props.projectList]);
@@ -124,7 +139,12 @@ const LandingPage = (props, match) => {
     setTabIndex(newValue);
   };
   const handleUpdateProject = (payload) => {
-    props.updateProject(payload);
+    props.updateProject(payload, selectedProject.id);
+    setItemModalOpen(false);
+    setEditPOCDetails({});
+    setEditNote({});
+    setOpenAddPOC(false);
+    setOpenAddNotes(false);
   };
   const handleAddPOC = (item) => {
     setEditPOCDetails(item);
@@ -134,15 +154,36 @@ const LandingPage = (props, match) => {
   const handleDeletePOC = (dataToRemove) => {
     const payload = {
       ...selectedProject,
-      poc: selectedProject.poc.filter((item) => item.email !== dataToRemove.email),
+      poc: selectedProject.poc.filter((item) => item.id !== dataToRemove.id),
     };
     setSelectedProject(payload);
-    props.updateProject(payload);
+    props.updateProject(payload, selectedProject.id);
+  };
+  const handleAddNotes = (item) => {
+    setEditNote(item);
+    setOpenAddNotes(true);
+    toggleModal();
+  };
+  const handleDeleteNote = (dataToRemove) => {
+    const payload = {
+      ...selectedProject,
+      notes: selectedProject.notes.filter((item) => item.id !== dataToRemove.id),
+    };
+    setSelectedProject(payload);
+    props.updateProject(payload, selectedProject.id);
   };
   const handleModalClose = () => {
     setItemModalOpen(false);
+    setEditPOCDetails({});
+    setEditNote({});
     setOpenAddPOC(false);
+    setOpenAddNotes(false);
   };
+  console.log(window.location.pathname);
+  if (window.location.pathname === '/' && props.projectList.length) {
+    const path = props.projectList[0].id;
+    return <Redirect to={`/${path}`} />;
+  }
   return (
     <React.Fragment>
       <Header />
@@ -171,32 +212,21 @@ const LandingPage = (props, match) => {
                 handleTabIndex={(value) => handleTabIndex(value)}></Toolbar>
             </section>
             <TabPanel className="tabpanel" value={tabIndex} index={0}>
-              {/* <FirstPanel data={props.projectList ?? []} /> */}
-              {/* <Route
+              <Route
                 path={`/:projectId`}
                 exact
-                render={(props) => (
-                  <FirstPanel data={[]} {...props} handleUpdateProject={handleUpdateProject} />
+                render={(prop) => (
+                  <FirstPanel
+                    data={props.projectList}
+                    {...prop}
+                    handleUpdateProject={handleUpdateProject}
+                    handleAddPOC={handleAddPOC}
+                    handleDeletePOC={handleDeletePOC}
+                    handleAddNotes={handleAddNotes}
+                    handleDeleteNote={handleDeleteNote}
+                  />
                 )}
-              /> */}
-              <FirstPanelLayout className="panel-one-wrapper">
-                <section className="basic-info">
-                  <section className="panel-header">
-                    <span>Case Basic Info</span>
-                  </section>
-                  <section className="form-section">
-                    <EnhancedBasicInfoForm
-                      updateProjectData={(payload) => handleUpdateProject(payload)}
-                    />
-                  </section>
-                </section>
-                <POC
-                  openAddPOC={handleAddPOC}
-                  deletePOCDetail={handleDeletePOC}
-                  data={selectedProject}
-                />
-                <Notes data={selectedProject} />
-              </FirstPanelLayout>
+              />
             </TabPanel>
             <TabPanel className="tabpanel" value={tabIndex} index={1}>
               Item Two
@@ -213,7 +243,7 @@ const LandingPage = (props, match) => {
           </ContentSection>
         </section>
         <CustomModal title="Item Modal" open={itemModalOpen} handleClose={() => handleModalClose()}>
-          {!openAddPOC && (
+          {!openAddPOC && !openAddNotes && (
             <React.Fragment>
               <Heading>Case Details</Heading>
               <EnhancedForm addProject={(payload) => handleAddProject(payload)} />
@@ -226,6 +256,16 @@ const LandingPage = (props, match) => {
                 data={editPOCDetails}
                 projectData={selectedProject}
                 updatePoc={(payload) => handleUpdateProject(payload)}
+              />
+            </React.Fragment>
+          )}
+          {openAddNotes && (
+            <React.Fragment>
+              <Heading>Add Notes</Heading>
+              <EnhancedAddNotes
+                data={editNote}
+                projectData={selectedProject}
+                updateNote={(payload) => handleUpdateProject(payload)}
               />
             </React.Fragment>
           )}

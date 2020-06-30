@@ -32,8 +32,12 @@ const POC = (props) => {
       <section className="poc-list-section">
         {props.data?.poc?.map((item, index) => (
           <div className="poc-li">
-            <span>{item.pocName}</span>
-            <span>{item.email}</span>
+            <span title={item.pocName} className="poc-name">
+              {item.pocName}
+            </span>
+            <span title={item.email} className="poc-email">
+              {item.email}
+            </span>
             <FontAwesomeIcon
               className="dots-icon"
               onClick={() => handleTooltipOpen(index)}

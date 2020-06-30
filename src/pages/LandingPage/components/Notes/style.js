@@ -28,8 +28,23 @@ export const NotesLayout = styled.section`
       background-color: ${(props) => props.theme.veryLightGrey};
     }
   }
+  .popper {
+    top: 27px !important;
+    right: 0;
+    position: absolute !important;
+    left: 263px !important;
+    z-index: 1;
+    li {
+      font-family: Poppins-Light;
+      font-size: 12px;
+    }
+  }
   .header-label {
     display: flex;
     justify-content: flex-start;
+  }
+  .note-label {
+    color: ${(props) => props.theme.labelGrey};
+    font-size: 10px;
   }
 `;

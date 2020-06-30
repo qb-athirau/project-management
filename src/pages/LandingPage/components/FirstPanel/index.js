@@ -18,15 +18,24 @@ const EnhancedBasicInfoForm = withFormik({
     probability: props.data.probability ?? 0,
     quoteStatus: props.data.quoteStatus ?? '',
   }),
-  mapPropsToValues: () => ({}),
+  enableReinitialize: true,
   handleBlur: (values, { props, setSubmitting }) => {
     props.addProject(values);
   },
   displayName: 'Basic Info Form',
 })(BasicInfoForm);
 
-const FirstPanel = ({ match, data, handleUpdateProject }) => {
+const FirstPanel = ({
+  match,
+  data,
+  handleUpdateProject,
+  handleDeletePOC,
+  handleAddPOC,
+  handleAddNotes,
+  handleDeleteNote,
+}) => {
   const project = data && data.length !== 0 ? data.find((p) => p.id == match.params.projectId) : [];
+
   return (
     <FirstPanelLayout className="panel-one-wrapper">
       <section className="basic-info">
@@ -40,8 +49,8 @@ const FirstPanel = ({ match, data, handleUpdateProject }) => {
           />
         </section>
       </section>
-      <POC />
-      <Notes />
+      <POC openAddPOC={handleAddPOC} deletePOCDetail={handleDeletePOC} data={project} />
+      <Notes data={project} openAddNote={handleAddNotes} deleteNote={handleDeleteNote} />
     </FirstPanelLayout>
   );
 };

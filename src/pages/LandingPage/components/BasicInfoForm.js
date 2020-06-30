@@ -35,6 +35,11 @@ export const BasicInfoForm = (props) => {
         ...projectData,
         renewalDate: value,
       });
+      props.updateProjectData({
+        ...projectData,
+        ...props.data,
+        renewalDate: value,
+      });
     }
   };
 
@@ -43,6 +48,15 @@ export const BasicInfoForm = (props) => {
       invalidPhoneNum.current = 'Please enter a valid phone number.';
     } else {
       invalidPhoneNum.current = '';
+      setProjectData({
+        ...projectData,
+        phoneNumber: value,
+      });
+      props.updateProjectData({
+        ...projectData,
+        ...props.data,
+        phoneNumber: value,
+      });
     }
   };
   const handleProjectData = (event, label) => {
@@ -52,6 +66,7 @@ export const BasicInfoForm = (props) => {
     });
     props.updateProjectData({
       ...projectData,
+      ...props.data,
       [label]: event.target.value,
     });
   };
@@ -68,7 +83,7 @@ export const BasicInfoForm = (props) => {
           />
           <FormikField
             name="clientName"
-            label="Project Name"
+            label="Client Name"
             className="wrapper"
             fullWidth
             autoComplete="off"

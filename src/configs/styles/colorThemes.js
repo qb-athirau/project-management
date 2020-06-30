@@ -11,6 +11,7 @@ const colorThemes = {
   errorRed: 'rgb(191, 49, 12)',
   snow: '#fbfbfb',
   whisper: '#eee',
+  labelGrey: 'rgba(0, 0, 0, 0.54)',
 };
 
 export default colorThemes;

@@ -113,9 +113,13 @@ export const BasicFormLayout = styled.div`
     color: ${(props) => props.theme.errorRed};
     font-size: 10px;
   }
+  .select-margin {
+    margin: 5px;
+  }
   .radio-btn {
     display: flex;
     flex-direction: row;
+    margin: 5px;
     label {
       width: 35%;
       .MuiFormControlLabel-label {

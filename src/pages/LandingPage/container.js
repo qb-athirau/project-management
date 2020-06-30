@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addProject: (payload) => dispatch(addProject(payload)),
     getProjects: () => dispatch(getProjects()),
-    updateProject: (payload) => dispatch(updateProject(payload)),
+    updateProject: (payload, id) => dispatch(updateProject(payload, id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

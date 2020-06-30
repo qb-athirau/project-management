@@ -15,25 +15,25 @@ const Notes = (props) => {
     setOpen(false);
   };
   const menuItemClick = (label, item) => {
-    // if (label === 'Edit') {
-    //   props.openAddPOC(item);
-    // } else {
-    //   props.deletePOCDetail(item);
-    // }
+    if (label === 'Edit') {
+      props.openAddNote(item);
+    } else {
+      props.deleteNote(item);
+    }
   };
   return (
     <NotesLayout className="notes">
       <section className="panel-header">
         <span className="header-label">Case Notes</span>
         <span>
-          <FontAwesomeIcon className="plus-icon" onClick={props.openAddPOC} icon={faPlusCircle} />
+          <FontAwesomeIcon className="plus-icon" onClick={props.openAddNote} icon={faPlusCircle} />
         </span>
       </section>
       <section className="notes-list-section">
         {props.data?.notes?.map((item, index) => (
           <div className="notes-li">
             <span className="column-wrap">
-              <span>{item.label}</span>
+              <span className="note-label">{item.label}</span>
               <span>{item.description}</span>
             </span>
             <FontAwesomeIcon

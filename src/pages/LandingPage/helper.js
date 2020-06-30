@@ -2,7 +2,13 @@ import fetchAPI from '../../utils/api/api';
 import Api from '../../lib/apiUrls';
 import { updateToast } from '../../slices/toasterSlice';
 import { toastMessages } from '../../configs/constants';
-import { setProjectStart, setProjects, addProjects, setProjectFailure } from './slice';
+import {
+  setProjectStart,
+  setProjects,
+  addProjects,
+  updateProjects,
+  setProjectFailure,
+} from './slice';
 
 export const addProject = (data) => (dispatch) => {
   try {
@@ -42,12 +48,12 @@ export const getProjects = () => (dispatch) => {
   }
 };
 
-export const updateProject = (data) => (dispatch) => {
+export const updateProject = (data, projectId) => (dispatch) => {
   try {
     dispatch(setProjectStart());
-    const response = fetchAPI.put(`${Api.projectsApi}/2`, data);
+    const response = fetchAPI.put(`${Api.projectsApi}/${projectId}`, data);
     response.then((res) => {
-      dispatch(setProjects(res?.data));
+      dispatch(updateProjects(res?.data));
     });
   } catch (error) {
     dispatch(setProjectFailure());
