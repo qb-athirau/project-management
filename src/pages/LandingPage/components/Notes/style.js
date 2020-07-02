@@ -8,6 +8,9 @@ export const NotesLayout = styled.section`
   .plus-icon {
     color: ${(props) => props.theme.buttonGreen};
     font-size: 16px;
+    cursor: pointer;
+    width: 16px;
+    height: 20px;
   }
   .notes-list-section {
     display: flex;
@@ -15,6 +18,7 @@ export const NotesLayout = styled.section`
   }
   .dots-icon {
     padding-right: 5px;
+    cursor: pointer;
   }
   .notes-li {
     display: flex;
@@ -25,7 +29,7 @@ export const NotesLayout = styled.section`
     position: relative;
     border-bottom: 1px solid ${(props) => props.theme.Gray20};
     :hover {
-      background-color: ${(props) => props.theme.veryLightGrey};
+      background-color: ${(props) => props.theme.solitude};
     }
   }
   .popper {

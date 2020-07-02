@@ -31,15 +31,15 @@ export const BasicInfoForm = (props) => {
       props.setStatus({
         renewalDate: '',
       });
-      setProjectData({
-        ...projectData,
-        renewalDate: value,
-      });
-      props.updateProjectData({
-        ...projectData,
-        ...props.data,
-        renewalDate: value,
-      });
+      // setProjectData({
+      //   ...projectData,
+      //   renewalDate: value,
+      // });
+      // props.updateProjectData({
+      //   ...projectData,
+      //   ...props.data,
+      //   renewalDate: value,
+      // });
     }
   };
 
@@ -48,15 +48,15 @@ export const BasicInfoForm = (props) => {
       invalidPhoneNum.current = 'Please enter a valid phone number.';
     } else {
       invalidPhoneNum.current = '';
-      setProjectData({
-        ...projectData,
-        phoneNumber: value,
-      });
-      props.updateProjectData({
-        ...projectData,
-        ...props.data,
-        phoneNumber: value,
-      });
+      // setProjectData({
+      //   ...projectData,
+      //   phoneNumber: value,
+      // });
+      // props.updateProjectData({
+      //   ...projectData,
+      //   ...props.data,
+      //   phoneNumber: value,
+      // });
     }
   };
   const handleProjectData = (event, label) => {
@@ -87,7 +87,7 @@ export const BasicInfoForm = (props) => {
             className="wrapper"
             fullWidth
             autoComplete="off"
-            onBlur={(event) => handleProjectData(event, 'clientName')}
+            //onBlur={(event) => handleProjectData(event, 'clientName')}
           />
           <FormikField
             name="phoneNumber"
@@ -107,7 +107,7 @@ export const BasicInfoForm = (props) => {
             className="wrapper"
             fullWidth
             autoComplete="off"
-            onBlur={(event) => handleProjectData(event, 'name')}
+            // onBlur={(event) => handleProjectData(event, 'name')}
           />
           <span className="column-wrap">
             <div className="flex-wrap">
@@ -132,7 +132,7 @@ export const BasicInfoForm = (props) => {
                 type="number"
                 fullWidth
                 autoComplete="off"
-                onBlur={(event) => handleProjectData(event, 'liveNum')}
+                // onBlur={(event) => handleProjectData(event, 'liveNum')}
               />
             </div>
             {props.status?.renewalDate && (
@@ -145,7 +145,7 @@ export const BasicInfoForm = (props) => {
             className="wrapper"
             fullWidth
             autoComplete="off"
-            onBlur={(event) => handleProjectData(event, 'brokerName')}
+            //onBlur={(event) => handleProjectData(event, 'brokerName')}
           />
           <FormikSelect
             items={caseStatusList}
@@ -155,7 +155,7 @@ export const BasicInfoForm = (props) => {
             autoCapitalize="off"
             autoCorrect="off"
             placeholder=""
-            onBlur={(event) => handleProjectData(event, 'caseStatus')}
+            //onBlur={(event) => handleProjectData(event, 'caseStatus')}
           />
           <div className="flex-wrap">
             <FormikSelect
@@ -168,7 +168,7 @@ export const BasicInfoForm = (props) => {
               autoCapitalize="off"
               autoCorrect="off"
               placeholder=""
-              onBlur={(event) => handleProjectData(event, 'salesStage')}
+              //onBlur={(event) => handleProjectData(event, 'salesStage')}
             />
             <FormikField
               name="probability"
@@ -178,7 +178,7 @@ export const BasicInfoForm = (props) => {
               className="field-width"
               fullWidth
               autoComplete="off"
-              onBlur={(event) => handleProjectData(event, 'probability')}
+              //onBlur={(event) => handleProjectData(event, 'probability')}
             />
           </div>
           <FormikSelect
@@ -189,8 +189,16 @@ export const BasicInfoForm = (props) => {
             autoCapitalize="off"
             autoCorrect="off"
             placeholder=""
-            onBlur={(event) => handleProjectData(event, 'quoteStatus')}
+            //onBlur={(event) => handleProjectData(event, 'quoteStatus')}
           />
+          <ButtonWrap className="basic-info-submit">
+            <Button
+              tabindex={3}
+              type="submit"
+              disabled={isSubmitting || invalidPhoneNum.current || props.status?.renewalDate}>
+              {isSubmitting ? `ADDING...` : `ADD`}
+            </Button>
+          </ButtonWrap>
         </BasicFormLayout>
       </MuiPickersUtilsProvider>
     </Form>

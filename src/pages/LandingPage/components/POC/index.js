@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
 import { faPlusCircle, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { useModal } from '../../../../components/Modal/useModal';
+import { CustomModal } from '../../../../components/Modal/customModal';
 import PopperMenuItem from '../../../../components/Popper';
 import { popperList } from '../../../../configs/constants';
 import { POCLayout } from './style';
 
 const POC = (props) => {
   const [open, setOpen] = useState();
+  const [itemModalOpen, setItemModalOpen, toggleModal] = useModal();
+  const itemToBeDeleted = useRef();
 
   const handleTooltipOpen = (index) => {
     setOpen(index);
@@ -14,12 +20,20 @@ const POC = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleModalClose = () => {
+    setItemModalOpen(false);
+  };
   const menuItemClick = (label, item) => {
     if (label === 'Edit') {
       props.openAddPOC(item);
     } else {
-      props.deletePOCDetail(item);
+      toggleModal();
+      itemToBeDeleted.current = item;
+      // props.deletePOCDetail(item);
     }
+  };
+  const handleContinueClick = () => {
+    props.deletePOCDetail(itemToBeDeleted.current);
   };
   return (
     <POCLayout className="poc">
@@ -53,6 +67,17 @@ const POC = (props) => {
           </div>
         ))}
       </section>
+      <CustomModal open={itemModalOpen} handleClose={() => handleModalClose()}>
+        <span>Are you sure to remove this item from the list ?</span>
+        <DialogActions>
+          <Button onClick={() => handleModalClose()} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={() => handleContinueClick()} color="secondary" autoFocus>
+            Continue
+          </Button>
+        </DialogActions>
+      </CustomModal>
     </POCLayout>
   );
 };

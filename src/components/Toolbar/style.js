@@ -5,21 +5,22 @@ export const ToolbarNav = styled.ul`
     list-style-type: none;
     padding-left: 0;
     display: flex;
+    justify-content: center;
     padding: 0;
     font-size: 12px;
     font-family: Poppins-Medium;
   }
 `;
 const activeCss = css`
-  background: ${(props) => props.theme.speechBlue};
+  background: ${(props) => props.theme.headerBlue};
   color: ${(props) => props.theme.pureWhite};
   ::after {
-    border-left: 10px solid ${(props) => props.theme.speechBlue} !important;
+    border-left: 10px solid ${(props) => props.theme.headerBlue} !important;
   }
 `;
 export const ToolbarNavLi = styled.li`
   &.nav-li {
-    background: ${(props) => props.theme.veryLightGrey};
+    background: ${(props) => props.theme.darkSolitude};
     padding: 0.5rem 1rem 0.5rem 2rem;
     position: relative;
     transition: all 0.2s;
@@ -36,10 +37,10 @@ export const ToolbarNavLi = styled.li`
       ${({ active }) => active && active === 4 && activeCss}}
     }
     :active {
-      background: ${(props) => props.theme.speechBlue};
+      background: ${(props) => props.theme.headerBlue};
     }
     :hover {
-      background: ${(props) => props.theme.whisper};
+      background: ${(props) => props.theme.solitude};
       :not(:last-child) {
       ::after {
         position: absolute;
@@ -48,7 +49,7 @@ export const ToolbarNavLi = styled.li`
         content: '';
         display: inline-block;
         border: 17px solid transparent;
-        border-left: 10px solid ${(props) => props.theme.whisper};
+        border-left: 10px solid ${(props) => props.theme.solitude};
         border-right: 0;
         margin-right: -10px;
       }
@@ -76,7 +77,7 @@ export const ToolbarNavLi = styled.li`
       content: '';
       display: inline-block;
       border: 17px solid transparent;
-      border-left: 10px solid ${(props) => props.theme.veryLightGrey};
+      border-left: 10px solid ${(props) => props.theme.darkSolitude};
       border-right: 0;
       margin-right: -10px;
       transition: all 0.2s;

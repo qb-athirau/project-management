@@ -14,7 +14,7 @@ export const StyledSideNav = styled.div`
       justify-content: space-between;
       cursor: pointer;
       :hover {
-        background-color: ${(props) => props.theme.veryLightGrey};
+        background-color: ${(props) => props.theme.solitude};
       }
     }
   }
@@ -44,6 +44,10 @@ export const SpanText = styled.span`
   &.descriptn {
     color: ${(props) => props.theme.lightGrey};
     font-size: 12px;
+    max-width: 140px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 `;
 export const StyledLink = styled(NavLink)`

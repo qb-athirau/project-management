@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const MainLoaderWrapper = styled.div`
   width: 100%;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 150px);
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme.pureWhite};

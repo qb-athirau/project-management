@@ -12,6 +12,11 @@ const colorThemes = {
   snow: '#fbfbfb',
   whisper: '#eee',
   labelGrey: 'rgba(0, 0, 0, 0.54)',
+  aliceBlue: '#f8f9fb',
+  headerBlue: '#2f7ac6',
+  ghostWhite: '#f6f6fc',
+  solitude: '#edf1f8',
+  darkSolitude: '#eae7f1',
 };
 
 export default colorThemes;

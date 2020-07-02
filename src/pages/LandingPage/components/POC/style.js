@@ -8,9 +8,13 @@ export const POCLayout = styled.section`
   .plus-icon {
     color: ${(props) => props.theme.buttonGreen};
     font-size: 16px;
+    cursor: pointer;
+    width: 16px;
+    height: 20px;
   }
   .dots-icon {
     padding-right: 5px;
+    cursor: pointer;
   }
   .poc-list-section {
     display: flex;
@@ -24,7 +28,7 @@ export const POCLayout = styled.section`
     font-size: 12px;
     position: relative;
     :hover {
-      background-color: ${(props) => props.theme.veryLightGrey};
+      background-color: ${(props) => props.theme.solitude};
     }
   }
   .poc-name {

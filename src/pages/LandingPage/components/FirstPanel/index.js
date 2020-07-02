@@ -19,8 +19,8 @@ const EnhancedBasicInfoForm = withFormik({
     quoteStatus: props.data.quoteStatus ?? '',
   }),
   enableReinitialize: true,
-  handleBlur: (values, { props, setSubmitting }) => {
-    props.addProject(values);
+  handleSubmit: (values, { props, setSubmitting }) => {
+    props.updateProjectData(values);
   },
   displayName: 'Basic Info Form',
 })(BasicInfoForm);

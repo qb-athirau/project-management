@@ -17,8 +17,12 @@ export const ModalWrap = styled(Modal)`
   .paper {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     ${media.mediumScreen} {
-      height: 400px;
+      height: 350px;
       width: 400px;
       overflow-y: auto;
     }
@@ -30,9 +34,10 @@ export const ModalWrap = styled(Modal)`
   .close-icon {
     position: absolute;
     right: 1rem;
-    top: 1rem;
-    font-size: 25px;
+    top: 2rem;
+    font-size: 20px;
     color: ${(props) => props.theme.veryLightGrey};
+    cursor: pointer;
   }
 
   .wrapper {

@@ -5,4 +5,8 @@ export const FormikSelectLayout = styled.div`
     width: 200px;
     color: ${(props) => props.theme.errorRed};
   }
+  .MuiInputBase-root {
+    font-family: Poppins-Medium;
+    font-size: 12px;
+  }
 `;

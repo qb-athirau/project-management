@@ -4,6 +4,7 @@ export const SearchLayout = styled.div`
   .paper {
     padding: 2px 4px;
     display: flex;
+    justify-content: space-between;
     alignitems: center;
     height: 25px;
     margin: 10px;
@@ -15,6 +16,7 @@ export const SearchLayout = styled.div`
   }
   .iconButton {
     color: ${(props) => props.theme.veryLightGrey};
+    padding: 3px;
   }
   input {
     font-family: Poppins-Medium;

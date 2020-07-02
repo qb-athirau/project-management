@@ -110,7 +110,7 @@ const EnhancedAddPOC = withFormik({
 })(AddPOCForm);
 
 const LandingPage = (props, match) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [active, setActive] = useState(true);
   const [tabIndex, setTabIndex] = React.useState(0);
   const [openAddPOC, setOpenAddPOC] = useState(false);
@@ -134,6 +134,7 @@ const LandingPage = (props, match) => {
         : [];
     setSelectedProject(...project);
   }, [props.projectList]);
+
   const handleAddProject = (data) => {
     props.addProject(data);
     setItemModalOpen(false);
@@ -143,11 +144,7 @@ const LandingPage = (props, match) => {
   };
   const handleUpdateProject = (payload) => {
     props.updateProject(payload, selectedProject.id);
-    setItemModalOpen(false);
-    setEditPOCDetails({});
-    setEditNote({});
-    setOpenAddPOC(false);
-    setOpenAddNotes(false);
+    handleModalClose();
   };
   const handleAddPOC = (item) => {
     setEditPOCDetails(item);
@@ -189,7 +186,6 @@ const LandingPage = (props, match) => {
   return (
     <React.Fragment>
       <Header />
-      {props.loading && <MainLoader />}
       <LandingSection className="container">
         <Aside isOpen={open}>
           <div className="left-sidebar" ref={node}>
@@ -209,26 +205,34 @@ const LandingPage = (props, match) => {
         <section className="content-section-wrap">
           <ContentSection className="content" isOpen={open}>
             <section className="toolbar-wrapper">
+              <span className="selected-project">
+                <span className="case-label">Case Name </span>
+                &nbsp;&gt;&nbsp;
+                {selectedProject && <span className="case-name">{selectedProject.name}</span>}
+              </span>
               <Toolbar
                 tabDetails={toolbarList}
                 handleTabIndex={(value) => handleTabIndex(value)}></Toolbar>
             </section>
             <TabPanel className="tabpanel" value={tabIndex} index={0}>
-              <Route
-                path={`/project-management/:projectId`}
-                exact
-                render={(prop) => (
-                  <FirstPanel
-                    data={props.projectList}
-                    {...prop}
-                    handleUpdateProject={handleUpdateProject}
-                    handleAddPOC={handleAddPOC}
-                    handleDeletePOC={handleDeletePOC}
-                    handleAddNotes={handleAddNotes}
-                    handleDeleteNote={handleDeleteNote}
-                  />
-                )}
-              />
+              {props.loading && <MainLoader />}
+              {!props.loading && (
+                <Route
+                  path={`/project-management/:projectId`}
+                  exact
+                  render={(prop) => (
+                    <FirstPanel
+                      data={props.projectList}
+                      {...prop}
+                      handleUpdateProject={handleUpdateProject}
+                      handleAddPOC={handleAddPOC}
+                      handleDeletePOC={handleDeletePOC}
+                      handleAddNotes={handleAddNotes}
+                      handleDeleteNote={handleDeleteNote}
+                    />
+                  )}
+                />
+              )}
             </TabPanel>
             <TabPanel className="tabpanel" value={tabIndex} index={1}>
               Item Two

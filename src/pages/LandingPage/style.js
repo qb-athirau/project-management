@@ -21,7 +21,7 @@ export const ArrowContainer = styled.div`
 export const ContentSection = styled.section`
   &.content {
     // overflow: auto;
-    background-color: ${(props) => props.theme.snow};
+    background-color: ${(props) => props.theme.ghostWhite};
   }
   .toolbar-wrapper {
     overflow: hidden;
@@ -29,12 +29,26 @@ export const ContentSection = styled.section`
     background-color: ${(props) => props.theme.pureWhite};
     margin: 5px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+  }
+  .selected-project {
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
+    padding-left: 10px;
+  }
+  .case-label {
+    font-size: 12px;
+  }
+  .case-name {
+    font-family: Poppins-Bold;
+    font-size: 12px;
   }
   .tabpanel {
     background-color: #fff;
-    margin: 5px;
+    margin: 10px 5px;
     height: 100%;
   }
   .flex-wrap {
@@ -62,14 +76,23 @@ export const ButtonWrap = styled.div`
   margin: 0 auto !important;
   width: 60px;
   text-align: inherit;
+  &.basic-info-submit {
+    button {
+      border-radius: 20px;
+      height: 25px;
+      font-size: 10px;
+    }
+  }
   button {
     border-radius: 5px;
     height: 35px;
     font-size: 15px;
   }
 `;
-export const Heading = styled.h2`
+export const Heading = styled.div`
   text-align: center;
+  font-family: Poppins-Bold;
+  font-size: 16px;
 `;
 export const ProjectFormLayout = styled.div`
   display: flex;
@@ -81,10 +104,18 @@ export const ProjectFormLayout = styled.div`
     width: 280px;
   }
   .textarea-label {
-    font-size: 16px;
+    font-family: Poppins-Medium;
+    font-size: 12px;
     text-align: left;
     width: 300px;
-    margin-top: 34px;
+    margin-top: 17px;
+  }
+  .wrapper {
+    input,
+    .MuiFormLabel-root {
+      font-family: Poppins-Medium;
+      font-size: 12px;
+    }
   }
 `;
 export const BasicFormLayout = styled.div`
@@ -150,7 +181,7 @@ export const FirstPanelLayout = styled.div`
     height: 32px;
     font-size: 12px;
     font-family: Poppins-Medium;
-    background-color: ${(props) => props.theme.whisper};
+    background-color: ${(props) => props.theme.aliceBlue};
     display: flex;
     justify-content: space-between;
     align-items: center;

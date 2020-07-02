@@ -34,7 +34,7 @@ const Sidebar = ({ open, ...props }) => {
         <SearchBar onChange={(value) => handleSearch(value)} />
         <div className="list-header">
           <span>Project Name</span>
-          <span>status</span>
+          <span>Status</span>
         </div>
         {projectList?.map((item, index) => {
           return (
@@ -48,7 +48,7 @@ const Sidebar = ({ open, ...props }) => {
               title={item.name}>
               <span className="span-wraper">
                 <SpanText isOpen={open}>{item.name}</SpanText>
-                <SpanText className="descriptn" isOpen={open}>
+                <SpanText className="descriptn" title={item.description} isOpen={open}>
                   {item.description}
                 </SpanText>
               </span>
