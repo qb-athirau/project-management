@@ -1,4 +1,4 @@
-const mockApi = process.env.REACT_APP_MOCK_API_URL;
+const mockApi = process.env.REACT_APP_API_URL;
 const Api = {
   projectsApi: `${mockApi}projects`,
 };
