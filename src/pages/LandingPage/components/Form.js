@@ -34,6 +34,9 @@ export const ProjectForm = (props) => {
           name="status"
           label="Status"
           type="number"
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 2);
+          }}
           className="wrapper"
           fullWidth
           autoComplete="off"

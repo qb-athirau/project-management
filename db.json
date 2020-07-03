@@ -52,19 +52,6 @@
       "id": 3
     },
     {
-      "clientName": "Test",
-      "phoneNumber": "919996623456",
-      "name": "Project104",
-      "renewalDate": "2020-07-02T23:06:43.610Z",
-      "brokerName": "svdsvdvf",
-      "liveNum": 0,
-      "caseStatus": 1,
-      "salesStage": 2,
-      "probability": 23,
-      "quoteStatus": 2,
-      "id": 4
-    },
-    {
       "clientName": "Bingo",
       "phoneNumber": "919996728376",
       "name": "Project105",
@@ -75,7 +62,7 @@
       "salesStage": "",
       "probability": 0,
       "quoteStatus": "",
-      "id": 5,
+      "id": 4,
       "status": 75,
       "description": "fdgdgdcfgfd",
       "notes": [
