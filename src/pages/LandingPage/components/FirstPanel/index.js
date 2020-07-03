@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withFormik } from 'formik';
 import POC from '../POC';
 import Notes from '../Notes';
@@ -41,8 +41,12 @@ const FirstPanel = ({
   handleAddPOC,
   handleAddNotes,
   handleDeleteNote,
+  updateSelectedProject,
 }) => {
   const project = data && data.length !== 0 ? data.find((p) => p.id == match.params.projectId) : [];
+  useEffect(() => {
+    updateSelectedProject(project);
+  }, [match.params.projectId]);
 
   return (
     <FirstPanelLayout className="panel-one-wrapper">

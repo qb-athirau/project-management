@@ -62,16 +62,6 @@ export const BasicInfoForm = (props) => {
             fullWidth
             autoComplete="off"
           />
-          {/* <FormikField
-            name="phoneNumber"
-            label="Phone Number"
-            className="wrapper"
-            fullWidth
-            autoComplete="off"
-            validate={(value) => {
-              validatePhoneNumber(value, props);
-            }}
-          /> */}
           <InputLabel className="textarea-label" htmlFor="component-simple">
             Phone Number
           </InputLabel>
@@ -114,6 +104,7 @@ export const BasicInfoForm = (props) => {
                 inputclass="multi-field-width"
                 className="field-width"
                 component={DatePicker}
+                disablePast
                 format="dd/MM/yyyy"
                 validate={(value) => {
                   validateRenewalDate(value, props);

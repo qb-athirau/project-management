@@ -186,10 +186,14 @@ const LandingPage = (props, match) => {
     setOpenAddPOC(false);
     setOpenAddNotes(false);
   };
+  const updateSelectedProject = (projectData) => {
+    setSelectedProject(projectData);
+  };
   if (window.location.pathname === '/project-management' && props.projectList.length) {
     const path = props.projectList[0].id;
     return <Redirect to={`/project-management/${path}`} />;
   }
+
   return (
     <React.Fragment>
       <Header />
@@ -236,6 +240,7 @@ const LandingPage = (props, match) => {
                       handleDeletePOC={handleDeletePOC}
                       handleAddNotes={handleAddNotes}
                       handleDeleteNote={handleDeleteNote}
+                      updateSelectedProject={updateSelectedProject}
                     />
                   )}
                 />
