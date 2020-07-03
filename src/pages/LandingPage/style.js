@@ -140,6 +140,7 @@ export const BasicFormLayout = styled.div`
     width: 100%;
     border-bottom: 1px solid ${(props) => props.theme.hrGrey};
     margin: 10px 0 5px 0;
+    outline: none;
   }
   .MuiFormLabel-root {
     font-family: Poppins-Medium;

@@ -98,7 +98,7 @@ export const BasicInfoForm = (props) => {
               />
             )}></FormikField>
 
-          {invalidPhoneNum && <div className="message">{invalidPhoneNum.current}</div>}
+          {/* {invalidPhoneNum && <div className="message">{invalidPhoneNum.current}</div>} */}
           <FormikField
             name="name"
             label="Case Name"
@@ -183,10 +183,7 @@ export const BasicInfoForm = (props) => {
             placeholder=""
           />
           <ButtonWrap className="basic-info-submit">
-            <Button
-              tabindex={3}
-              type="submit"
-              disabled={isSubmitting || invalidPhoneNum.current || props.status?.renewalDate}>
+            <Button tabindex={3} type="submit" disabled={isSubmitting || props.status?.renewalDate}>
               {isSubmitting ? `ADDING...` : `ADD`}
             </Button>
           </ButtonWrap>
