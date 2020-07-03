@@ -27,10 +27,14 @@ export const NotesLayout = styled.section`
     font-family: Poppins-Medium;
     font-size: 12px;
     position: relative;
-    border-bottom: 1px solid ${(props) => props.theme.Gray20};
+    border-bottom: 1px solid ${(props) => props.theme.hrGrey};
     :hover {
       background-color: ${(props) => props.theme.solitude};
     }
+  }
+  .note-desc {
+    width: 314px;
+    word-break: break-word;
   }
   .popper {
     top: 27px !important;

@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ModalWrap } from './style';
 
-export const CustomModal = ({ open, handleClose, children }) => {
+export const CustomModal = ({ open, handleClose, children, height, closeIcon }) => {
   return (
     <ModalWrap
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className="modal"
+      height={height}
       open={open}
       onClose={handleClose}
       closeAfterTransition
@@ -20,7 +21,9 @@ export const CustomModal = ({ open, handleClose, children }) => {
       }}>
       <Fade in={open}>
         <div className="paper">
-          <FontAwesomeIcon className="close-icon" onClick={handleClose} icon={faTimes} />
+          {closeIcon && (
+            <FontAwesomeIcon className="close-icon" onClick={handleClose} icon={faTimes} />
+          )}
           {children}
         </div>
       </Fade>

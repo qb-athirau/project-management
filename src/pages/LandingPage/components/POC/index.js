@@ -29,7 +29,6 @@ const POC = (props) => {
     } else {
       toggleModal();
       itemToBeDeleted.current = item;
-      // props.deletePOCDetail(item);
     }
   };
   const handleContinueClick = () => {
@@ -67,13 +66,18 @@ const POC = (props) => {
           </div>
         ))}
       </section>
-      <CustomModal open={itemModalOpen} handleClose={() => handleModalClose()}>
+      <CustomModal height="150px" open={itemModalOpen} handleClose={() => handleModalClose()}>
         <span>Are you sure to remove this item from the list ?</span>
         <DialogActions>
-          <Button onClick={() => handleModalClose()} color="primary">
+          <Button variant="contained" size="small" onClick={() => handleModalClose()}>
             Cancel
           </Button>
-          <Button onClick={() => handleContinueClick()} color="secondary" autoFocus>
+          <Button
+            variant="contained"
+            onClick={() => handleContinueClick()}
+            color="primary"
+            size="small"
+            autoFocus>
             Continue
           </Button>
         </DialogActions>

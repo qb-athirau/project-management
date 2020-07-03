@@ -5,4 +5,6 @@ export const validationText = {
   requireStatus: 'Please enter status percentage',
   invalidEmail: 'Please enter a valid email',
   requireEmail: 'Please enter an email',
+  requireLabel: 'Please enter a label',
+  requireDescription: 'Please enter a description',
 };

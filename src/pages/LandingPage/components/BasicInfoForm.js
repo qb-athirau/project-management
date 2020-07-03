@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Form, Field } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
 import { DatePicker } from 'formik-material-ui-pickers';
+import MaskedInput from 'react-text-mask';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Button from '../../../components/Button';
@@ -10,11 +11,13 @@ import FormikField from '../../../components/FormikField';
 import FormikSelect from '../../../components/FormikSelect';
 import FormikRadioGroup from '../../../components/FormikRadioGroup';
 import TextArea from '../../../components/TextArea';
+import TextField from '@material-ui/core/TextField';
 import {
   caseStatusList,
   salesStageList,
   radioBtnLabels,
   phoneRegExp,
+  phoneNumberMask,
 } from '../../../configs/constants';
 
 export const BasicInfoForm = (props) => {
@@ -31,15 +34,6 @@ export const BasicInfoForm = (props) => {
       props.setStatus({
         renewalDate: '',
       });
-      // setProjectData({
-      //   ...projectData,
-      //   renewalDate: value,
-      // });
-      // props.updateProjectData({
-      //   ...projectData,
-      //   ...props.data,
-      //   renewalDate: value,
-      // });
     }
   };
 
@@ -48,28 +42,9 @@ export const BasicInfoForm = (props) => {
       invalidPhoneNum.current = 'Please enter a valid phone number.';
     } else {
       invalidPhoneNum.current = '';
-      // setProjectData({
-      //   ...projectData,
-      //   phoneNumber: value,
-      // });
-      // props.updateProjectData({
-      //   ...projectData,
-      //   ...props.data,
-      //   phoneNumber: value,
-      // });
     }
   };
-  const handleProjectData = (event, label) => {
-    setProjectData({
-      ...projectData,
-      [label]: event.target.value,
-    });
-    props.updateProjectData({
-      ...projectData,
-      ...props.data,
-      [label]: event.target.value,
-    });
-  };
+
   return (
     <Form name="BasicInfo Form" method="post" onSubmit={handleSubmit}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -79,7 +54,6 @@ export const BasicInfoForm = (props) => {
             options={radioBtnLabels}
             className="radio-btn"
             component={FormikRadioGroup}
-            onChange={(event) => handleProjectData(event, 'radioGroup')}
           />
           <FormikField
             name="clientName"
@@ -87,19 +61,43 @@ export const BasicInfoForm = (props) => {
             className="wrapper"
             fullWidth
             autoComplete="off"
-            //onBlur={(event) => handleProjectData(event, 'clientName')}
           />
-          <FormikField
+          {/* <FormikField
             name="phoneNumber"
             label="Phone Number"
             className="wrapper"
             fullWidth
             autoComplete="off"
-            // onBlur={(event) => handleProjectData(event, 'phoneNumber')}
             validate={(value) => {
               validatePhoneNumber(value, props);
             }}
-          />
+          /> */}
+          <InputLabel className="textarea-label" htmlFor="component-simple">
+            Phone Number
+          </InputLabel>
+          <FormikField
+            type="number"
+            name="phoneNumber"
+            autoCorrect="off"
+            label=" Phone Number"
+            fullWidth
+            className="wrapper"
+            validate={(value) => {
+              validatePhoneNumber(value, props);
+            }}
+            render={({ field }) => (
+              <MaskedInput
+                {...field}
+                mask={phoneNumberMask}
+                className="wrapper phone-num"
+                placeholder="(--) --- --- ----"
+                type="text"
+                validate={(value) => {
+                  validatePhoneNumber(value, props);
+                }}
+              />
+            )}></FormikField>
+
           {invalidPhoneNum && <div className="message">{invalidPhoneNum.current}</div>}
           <FormikField
             name="name"
@@ -107,7 +105,6 @@ export const BasicInfoForm = (props) => {
             className="wrapper"
             fullWidth
             autoComplete="off"
-            // onBlur={(event) => handleProjectData(event, 'name')}
           />
           <span className="column-wrap">
             <div className="flex-wrap">
@@ -132,7 +129,6 @@ export const BasicInfoForm = (props) => {
                 type="number"
                 fullWidth
                 autoComplete="off"
-                // onBlur={(event) => handleProjectData(event, 'liveNum')}
               />
             </div>
             {props.status?.renewalDate && (
@@ -145,7 +141,6 @@ export const BasicInfoForm = (props) => {
             className="wrapper"
             fullWidth
             autoComplete="off"
-            //onBlur={(event) => handleProjectData(event, 'brokerName')}
           />
           <FormikSelect
             items={caseStatusList}
@@ -155,7 +150,6 @@ export const BasicInfoForm = (props) => {
             autoCapitalize="off"
             autoCorrect="off"
             placeholder=""
-            //onBlur={(event) => handleProjectData(event, 'caseStatus')}
           />
           <div className="flex-wrap">
             <FormikSelect
@@ -168,7 +162,6 @@ export const BasicInfoForm = (props) => {
               autoCapitalize="off"
               autoCorrect="off"
               placeholder=""
-              //onBlur={(event) => handleProjectData(event, 'salesStage')}
             />
             <FormikField
               name="probability"
@@ -178,7 +171,6 @@ export const BasicInfoForm = (props) => {
               className="field-width"
               fullWidth
               autoComplete="off"
-              //onBlur={(event) => handleProjectData(event, 'probability')}
             />
           </div>
           <FormikSelect
@@ -189,7 +181,6 @@ export const BasicInfoForm = (props) => {
             autoCapitalize="off"
             autoCorrect="off"
             placeholder=""
-            //onBlur={(event) => handleProjectData(event, 'quoteStatus')}
           />
           <ButtonWrap className="basic-info-submit">
             <Button

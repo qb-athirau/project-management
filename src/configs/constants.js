@@ -61,3 +61,24 @@ export const radioBtnLabels = ['New Client', 'Existing Client'];
 export const phoneRegExp = /\d{5}([- ]*)\d{6}/;
 
 export const popperList = ['Edit', 'Remove'];
+
+export const phoneNumberMask = [
+  '(',
+  /[1-9]/,
+  /\d/,
+  ')',
+  ' ',
+  '-',
+  /[1-9]/,
+  /\d/,
+  /\d/,
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];

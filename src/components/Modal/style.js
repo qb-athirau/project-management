@@ -22,7 +22,7 @@ export const ModalWrap = styled(Modal)`
     justify-content: center;
     align-items: center;
     ${media.mediumScreen} {
-      height: 350px;
+      height: ${(props) => (props.height ? props.height : '350px')};
       width: 400px;
       overflow-y: auto;
     }

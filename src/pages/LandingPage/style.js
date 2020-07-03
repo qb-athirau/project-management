@@ -126,6 +126,21 @@ export const BasicFormLayout = styled.div`
     font-family: Poppins-Medium;
     font-size: 12px;
   }
+  .textarea-label {
+    font-family: Poppins-Medium;
+    font-size: 9px !important;
+    text-align: left;
+    width: 300px;
+    padding-left: 5px;
+  }
+  .phone-num {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    width: 100%;
+    border-bottom: 1px solid ${(props) => props.theme.hrGrey};
+    margin: 10px 0 5px 0;
+  }
   .MuiFormLabel-root {
     font-family: Poppins-Medium;
     font-size: 12px;

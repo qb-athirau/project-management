@@ -10,3 +10,8 @@ export const PocValidator = {
   pocName: Yup.string().required(validationText.requireName),
   email: Yup.string().email(validationText.invalidEmail).required(validationText.requireEmail),
 };
+
+export const notesValidator = {
+  label: Yup.string().required(validationText.requireLabel),
+  description: Yup.string().required(validationText.requireDescription),
+};

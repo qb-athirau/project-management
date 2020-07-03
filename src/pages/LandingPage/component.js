@@ -16,7 +16,7 @@ import { toolbarList } from '../../configs/constants';
 import FirstPanel from './components/FirstPanel';
 import { AddPOCForm } from './components/AddPOCForm';
 import { AddNotesForm } from './components/AddNotesForm';
-import { validator, PocValidator } from './validate';
+import { validator, PocValidator, notesValidator } from './validate';
 import { Aside, ArrowContainer, ContentSection, LandingSection, Heading } from './style';
 
 const EnhancedForm = withFormik({
@@ -41,6 +41,7 @@ const EnhancedAddNotes = withFormik({
     label: props.data.label ?? '',
     description: props.data.description ?? '',
   }),
+  validationSchema: Yup.object().shape(notesValidator),
   handleSubmit: (values, { props, setSubmitting }) => {
     let updatednote = [];
     if (props.data.id) {
@@ -54,16 +55,19 @@ const EnhancedAddNotes = withFormik({
         return item;
       });
     }
-    props.updateNote({
-      ...props.projectData,
-      notes:
-        updatednote.length !== 0
-          ? updatednote
-          : [
-              ...(props.projectData?.notes ?? ''),
-              { ...values, id: props.projectData?.notes?.length ?? 0 },
-            ],
-    });
+    props.updateNote(
+      {
+        ...props.projectData,
+        notes:
+          updatednote.length !== 0
+            ? updatednote
+            : [
+                ...(props.projectData?.notes ?? ''),
+                { ...values, id: props.projectData?.notes?.length ?? 0 },
+              ],
+      },
+      props.projectData?.id,
+    );
     const timeOut = setTimeout(() => {
       setSubmitting(false);
       clearTimeout(timeOut);
@@ -91,16 +95,19 @@ const EnhancedAddPOC = withFormik({
         return item;
       });
     }
-    props.updatePoc({
-      ...props.projectData,
-      poc:
-        updatedpoc.length !== 0
-          ? updatedpoc
-          : [
-              ...(props.projectData?.poc ?? ''),
-              { ...values, id: props.projectData?.poc?.length ?? 0 },
-            ],
-    });
+    props.updatePoc(
+      {
+        ...props.projectData,
+        poc:
+          updatedpoc.length !== 0
+            ? updatedpoc
+            : [
+                ...(props.projectData?.poc ?? ''),
+                { ...values, id: props.projectData?.poc?.length ?? 0 },
+              ],
+      },
+      props.projectData?.id,
+    );
     const timeOut = setTimeout(() => {
       setSubmitting(false);
       clearTimeout(timeOut);
@@ -142,8 +149,8 @@ const LandingPage = (props, match) => {
   const handleTabIndex = (newValue) => {
     setTabIndex(newValue);
   };
-  const handleUpdateProject = (payload) => {
-    props.updateProject(payload, selectedProject.id);
+  const handleUpdateProject = (payload, id) => {
+    props.updateProject(payload, id);
     handleModalClose();
   };
   const handleAddPOC = (item) => {
@@ -248,7 +255,11 @@ const LandingPage = (props, match) => {
             </TabPanel>
           </ContentSection>
         </section>
-        <CustomModal title="Item Modal" open={itemModalOpen} handleClose={() => handleModalClose()}>
+        <CustomModal
+          title="Item Modal"
+          closeIcon={true}
+          open={itemModalOpen}
+          handleClose={() => handleModalClose()}>
           {!openAddPOC && !openAddNotes && (
             <React.Fragment>
               <Heading>Case Details</Heading>
@@ -261,7 +272,7 @@ const LandingPage = (props, match) => {
               <EnhancedAddPOC
                 data={editPOCDetails}
                 projectData={selectedProject}
-                updatePoc={(payload) => handleUpdateProject(payload)}
+                updatePoc={(payload, id) => handleUpdateProject(payload, id)}
               />
             </React.Fragment>
           )}
@@ -271,7 +282,7 @@ const LandingPage = (props, match) => {
               <EnhancedAddNotes
                 data={editNote}
                 projectData={selectedProject}
-                updateNote={(payload) => handleUpdateProject(payload)}
+                updateNote={(payload, id) => handleUpdateProject(payload, id)}
               />
             </React.Fragment>
           )}

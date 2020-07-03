@@ -12,6 +12,7 @@ const colorThemes = {
   snow: '#fbfbfb',
   whisper: '#eee',
   labelGrey: 'rgba(0, 0, 0, 0.54)',
+  hrGrey: 'rgba(0, 0, 0, 0.42)',
   aliceBlue: '#f8f9fb',
   headerBlue: '#2f7ac6',
   ghostWhite: '#f6f6fc',
