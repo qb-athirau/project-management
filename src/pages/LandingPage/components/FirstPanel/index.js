@@ -22,10 +22,8 @@ const EnhancedBasicInfoForm = withFormik({
   handleSubmit: (values, { props, setSubmitting }) => {
     props.updateProjectData(
       {
+        ...props.data,
         ...values,
-        id: props.data?.id,
-        status: props.data?.status,
-        description: props.data?.description,
       },
       props.data?.id,
     );
