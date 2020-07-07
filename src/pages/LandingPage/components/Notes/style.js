@@ -40,7 +40,7 @@ export const NotesLayout = styled.section`
     top: 27px !important;
     right: 0;
     position: absolute !important;
-    left: 263px !important;
+    left: 250px !important;
     z-index: 1;
     li {
       font-family: Poppins-Light;
